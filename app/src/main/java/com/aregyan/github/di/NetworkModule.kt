@@ -13,10 +13,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
+//Network module dependency
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+    //This function provides Http Client
     @Singleton
     @Provides
     fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
@@ -31,6 +33,7 @@ object NetworkModule {
             .build()
     }
 
+    //This function provides Retrofit client
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
@@ -39,11 +42,13 @@ object NetworkModule {
         .client(okHttpClient)
         .build()
 
+    //This function provides Api Service
     @Provides
     @Singleton
     fun provideApiService(retrofit: Retrofit): UserListService =
         retrofit.create(UserListService::class.java)
 
+    //This function provides User Details service api
     @Provides
     @Singleton
     fun provideUserDetailsService(retrofit: Retrofit): UserDetailsService =

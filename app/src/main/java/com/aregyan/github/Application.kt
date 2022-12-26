@@ -2,16 +2,7 @@ package com.aregyan.github
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
-import timber.log.Timber
 
+//Hilt android app extended to application
 @HiltAndroidApp
-class Application : Application() {
-
-    override fun onCreate() {
-        super.onCreate()
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
-    }
-
-}
+class Application : Application()

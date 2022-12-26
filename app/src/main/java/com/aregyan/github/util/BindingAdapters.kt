@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 import java.util.*
 
+//So this will Bind the data to adapters Image by taking imageURL and ImageView using the Glide library
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, url: String?) {
     if (!url.isNullOrEmpty()) {
@@ -14,6 +15,7 @@ fun loadImage(view: ImageView, url: String?) {
     }
 }
 
+//So this one is binding the text with formatted date and time and binding it to the TextView
 @BindingAdapter("dateFormatter")
 fun TextView.dateFormatter(string: String?) {
     if (string?.isNotEmpty() == true) {
@@ -24,5 +26,4 @@ fun TextView.dateFormatter(string: String?) {
         }
 
     }
-
 }

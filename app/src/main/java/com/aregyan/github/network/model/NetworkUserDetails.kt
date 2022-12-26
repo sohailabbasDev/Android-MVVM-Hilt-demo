@@ -5,6 +5,7 @@ import com.aregyan.github.database.DatabaseUserDetails
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+//Data class representing our json object from the API
 @JsonClass(generateAdapter = true)
 data class NetworkUserDetails(
     @Json(name = "avatar_url")
@@ -73,6 +74,7 @@ data class NetworkUserDetails(
     val url: String? = null
 )
 
+//mapper to convert NetworkUserDetails to DatabaseUserDetails
 fun NetworkUserDetails.asDatabaseModel(): DatabaseUserDetails {
     return DatabaseUserDetails(
         user = login,

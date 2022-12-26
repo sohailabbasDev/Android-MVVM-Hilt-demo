@@ -15,11 +15,15 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class UserListFragment : Fragment() {
+
+    //view model instance
     private val viewModel: UserListViewModel by viewModels()
 
+    //adapter injected
     @Inject
     lateinit var adapter: UsersListAdapter
 
+    //binding
     private var _binding: FragmentUserListBinding? = null
     private val binding get() = _binding!!
 
@@ -29,6 +33,7 @@ class UserListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        // initializing binding, view model and lifecycleOwner, recyclerView
         _binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_user_list, container, false
         )
@@ -41,10 +46,16 @@ class UserListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //attaches list to the adapter getting the data from view model
         viewModel.data.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
+
+        // function to perform item click
         adapter.clickListener.onItemClick = {
+
+            //navigation to navigate to other fragment
             findNavController().navigate(UserListFragmentDirections.actionUsersListToUserDetails(it.username))
         }
     }

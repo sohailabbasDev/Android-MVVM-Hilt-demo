@@ -12,12 +12,20 @@ import com.aregyan.github.R
 import com.aregyan.github.databinding.FragmentUserDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+//User details fragment where single user is shown
 @AndroidEntryPoint
 class UserDetailsFragment : Fragment() {
+
+    //view model instance
     private val viewModel: UserDetailsViewModel by viewModels()
+
+    // arguments from previous fragment
     private val args: UserDetailsFragmentArgs by navArgs()
 
+    //binding of fragment views
     private var _binding: FragmentUserDetailsBinding? = null
+
+    //binding
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -32,19 +40,26 @@ class UserDetailsFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+
+        //root is inflated
         return binding.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //refreshes user detail from viewmodel
         viewModel.refreshUserDetails(args.user)
     }
 
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getUserDetails(args.user).observe(viewLifecycleOwner, {
+
+        //This one is view model scope coroutine that gets user details from view model
+        viewModel.getUserDetails(args.user).observe(viewLifecycleOwner) {
             viewModel.userDetails.set(it)
-        })
+        }
     }
 
     override fun onDestroyView() {

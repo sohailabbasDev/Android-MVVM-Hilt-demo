@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.aregyan.github.domain.UserDetails
 
+//Entity data class for room DB
 @Entity
 data class DatabaseUserDetails constructor(
     @PrimaryKey
@@ -14,6 +15,7 @@ data class DatabaseUserDetails constructor(
     val location: String
 )
 
+//Mapper that converts DatabaseUserDetails to UserDetails
 fun DatabaseUserDetails.asDomainModel(): UserDetails {
     return UserDetails(
         user = user,

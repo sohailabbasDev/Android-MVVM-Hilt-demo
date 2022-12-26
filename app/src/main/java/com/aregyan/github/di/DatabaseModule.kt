@@ -11,9 +11,14 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/*
+This is dependency injection using dagger hilt
+*/
 @InstallIn(SingletonComponent::class)
 @Module
 object DatabaseModule {
+
+    //This function provides App Database
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext appContext: Context): UsersDatabase {
@@ -24,6 +29,8 @@ object DatabaseModule {
         ).fallbackToDestructiveMigration().build()
     }
 
+
+    //This function provides Data access object
     @Provides
     fun provideChannelDao(usersDatabase: UsersDatabase): UsersDao {
         return usersDatabase.usersDao

@@ -10,6 +10,7 @@ import com.aregyan.github.domain.UserListItem
 import dagger.hilt.android.scopes.FragmentScoped
 import javax.inject.Inject
 
+//adapter that is fragment scoped
 @FragmentScoped
 class UsersListAdapter @Inject constructor(val clickListener: ClickListener) :
     ListAdapter<UserListItem, UsersListAdapter.ViewHolder>(UsersListDiffCallback()) {
@@ -26,6 +27,7 @@ class UsersListAdapter @Inject constructor(val clickListener: ClickListener) :
     class ViewHolder private constructor(private val binding: ItemUsersListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        //binds the views using binding
         fun bind(item: UserListItem, clickListener: ClickListener) {
             binding.data = item
             binding.executePendingBindings()
@@ -33,6 +35,8 @@ class UsersListAdapter @Inject constructor(val clickListener: ClickListener) :
         }
 
         companion object {
+
+            //from helper function to inflate item using binding
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemUsersListBinding.inflate(layoutInflater, parent, false)
@@ -42,6 +46,7 @@ class UsersListAdapter @Inject constructor(val clickListener: ClickListener) :
     }
 }
 
+// diff util to handle changes of the recycler view data changes
 class UsersListDiffCallback : DiffUtil.ItemCallback<UserListItem>() {
 
     override fun areItemsTheSame(oldItem: UserListItem, newItem: UserListItem): Boolean {
@@ -54,6 +59,7 @@ class UsersListDiffCallback : DiffUtil.ItemCallback<UserListItem>() {
 
 }
 
+//click listener to handle item clicks
 class ClickListener @Inject constructor() {
 
     var onItemClick: ((UserListItem) -> Unit)? = null

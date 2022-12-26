@@ -5,6 +5,7 @@ import retrofit2.http.GET
 
 interface UserListService {
 
+    //gets the list of user API
     @GET("/repos/square/retrofit/stargazers")
     suspend fun getUserList(): List<NetworkUserListItem>
 }

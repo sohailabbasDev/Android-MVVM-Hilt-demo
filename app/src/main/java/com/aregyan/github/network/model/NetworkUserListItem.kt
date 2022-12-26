@@ -5,6 +5,7 @@ import com.aregyan.github.database.DatabaseUserListItem
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+//Data class representing our json object from the API
 @JsonClass(generateAdapter = true)
 data class NetworkUserListItem(
     @Json(name = "avatar_url")
@@ -45,6 +46,7 @@ data class NetworkUserListItem(
     val url: String
 )
 
+//mapper to convert List<NetworkUserListItem> into List<DatabaseUserListItem>
 fun List<NetworkUserListItem>.asDatabaseModel(): List<DatabaseUserListItem> {
     return map {
         DatabaseUserListItem(

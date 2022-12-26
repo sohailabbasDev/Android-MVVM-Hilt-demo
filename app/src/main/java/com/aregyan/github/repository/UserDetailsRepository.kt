@@ -7,14 +7,15 @@ import com.aregyan.github.database.asDomainModel
 import com.aregyan.github.domain.UserDetails
 import com.aregyan.github.network.UserDetailsService
 import com.aregyan.github.network.model.asDatabaseModel
-import timber.log.Timber
 import javax.inject.Inject
 
+//Users detail repo to show single user object
 class UserDetailsRepository @Inject constructor(
     private val userDetailsService: UserDetailsService,
     private val database: UsersDatabase
 ) {
 
+    //func gets user details
     fun getUserDetails(user: String): LiveData<UserDetails> {
         return Transformations.map(database.usersDao.getUserDetails(user)) {
             it?.asDomainModel()
@@ -22,12 +23,13 @@ class UserDetailsRepository @Inject constructor(
     }
 
 
+    //refreshes user details
     suspend fun refreshUserDetails(user: String) {
         try {
             val userDetails = userDetailsService.getUserDetails(user)
             database.usersDao.insertUserDetails(userDetails.asDatabaseModel())
         } catch (e: Exception) {
-            Timber.w(e)
+            e.printStackTrace()
         }
     }
 
